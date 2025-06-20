@@ -62,7 +62,7 @@ const { mobile } = useDisplay()
                 <v-icon class="icon">mdi-email</v-icon>
                 <h3 class="text-h6">Personal Email</h3>
               </div>
-              <div class="d-flex ml-10">
+              <div class="d-flex ml-10 text-white">
                 <v-icon>mdi-google</v-icon>
                 <p class="ml-2">jlquinte1901@gmail.com</p>
               </div>
@@ -72,7 +72,7 @@ const { mobile } = useDisplay()
                 <v-icon class="icon">mdi-phone-in-talk</v-icon>
                 <h3 class="text-h6">WhatsApp Number</h3>
               </div>
-              <div class="d-flex ml-10">
+              <div class="d-flex ml-10 text-white">
                 <v-icon>mdi-whatsapp</v-icon>
                 <p class="ml-2">+63 909 283 8350</p>
               </div>
@@ -83,7 +83,12 @@ const { mobile } = useDisplay()
                 <h3 class="text-h6">Curriculum Vitae</h3>
               </div>
               <div class="d-flex ml-10">
-                <v-icon>mdi-dropbox</v-icon>
+                <a
+                  href="https://www.dropbox.com/scl/fi/jsk6idq9f9fxn7mbmoly6/resume.pdf?rlkey=cbmuvgzjg527jd6em8qlijcli&st=9rajkx5l&dl=0"
+                  target="_blank"
+                >
+                  <v-icon>mdi-dropbox</v-icon>
+                </a>
               </div>
             </v-col>
           </v-row>
