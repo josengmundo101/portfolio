@@ -1,39 +1,52 @@
 <script setup>
 import HeroImg from '@/assets/hero.jpg'
+import { useDisplay } from 'vuetify'
+
+// Utilize pre-defined Vue functions
+const { mobile } = useDisplay()
 </script>
 
 <template>
-  <v-container fluid class="hero-section">
-    <div class="green-overlay"></div>
-    <v-row no-gutters align="center">
-      <!-- Left Column: Image -->
-      <v-col cols="6" class="d-flex justify-center">
-        <v-img
-          :src="HeroImg"
-          alt="Joseph Lucio Quinte"
-          max-width="400"
-          class="profile-img"
-          :style="{ maxHeight: '80vh', objectFit: 'cover' }"
-        />
-      </v-col>
-      <!-- Right Column: Text -->
-      <v-col cols="6" class="right-column text-center text-md-left pa-4 text-white">
-        <h1 class="hero-name text-h3 mb-5">I'M JOSEPH LUCILO QUINTE.</h1>
-        <h2 class="text-h2 mb-5 white--text text-uppercase">FRONT-END DEVELOPER</h2>
-        <p class="mt-4 grey--text text-wrap">
-          I'm a web designer & front-end developer focused on crafting clean & user-friendly
-          experiences. I am passionate about building excellent software that improves the lives of
-          those around me.
-        </p>
-        <v-btn color="transparent" class="more-btn mt-5 white--text" outlined to="/about">
-          <p>More About me</p>
-          <div class="circle">
-            <v-icon>mdi-arrow-right</v-icon>
-          </div>
-        </v-btn>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-responsive :class="mobile ? 'hero-section mb-10' : ''">
+    <v-container fluid>
+      <v-row no-gutters align="center">
+        <!-- Left Column: Image -->
+        <v-col cols="12" md="6" class="d-flex justify-center">
+          <v-img
+            :src="HeroImg"
+            alt="Joseph Lucio Quinte"
+            :max-width="mobile ? '90%' : '400px'"
+            class="profile-img"
+            :style="{
+              maxHeight: '80vh',
+              objectFit: 'cover',
+              borderRadius: mobile ? '90%' : '20px',
+            }"
+          />
+        </v-col>
+        <!-- Right Column: Text -->
+        <v-col cols="12" md="6" class="right-column text-center text-md-left pa-4 text-white">
+          <h1 class="hero-name text-h3 mb-5" :class="mobile ? 'text-h4' : ''">
+            I'M JOSEPH LUCILO QUINTE.
+          </h1>
+          <h2 class="text-h2 mb-5 white--text text-uppercase" :class="mobile ? 'text-h3' : ''">
+            FRONT-END DEVELOPER
+          </h2>
+          <p class="mt-4 grey--text text-wrap">
+            I'm a web designer & front-end developer focused on crafting clean & user-friendly
+            experiences. I am passionate about building excellent software that improves the lives
+            of those around me.
+          </p>
+          <v-btn color="transparent" class="more-btn mt-5 white--text" outlined to="/about">
+            <p>More About me</p>
+            <div class="circle">
+              <v-icon>mdi-arrow-right</v-icon>
+            </div>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-responsive>
 </template>
 
 <style scoped>
@@ -51,68 +64,8 @@ import HeroImg from '@/assets/hero.jpg'
   padding: 20px;
 }
 
-.green-overlay {
-  position: absolute;
-  top: -100px;
-  /* left: 0; */
-  width: 100%;
-  min-height: 100vh;
-  background:
-    linear-gradient(45deg, #0f2c1a 0%, #0a0a0a 25%, #0a0a0a 50%, #0a0a0a 75%, transparent 100%),
-    radial-gradient(circle at 0% 0, rgba(0, 0, 0, 0.4) 0%, transparent 0%),
-    radial-gradient(circle at 0 0, rgba(0, 0, 0, 0.4) 0%, transparent 0%);
-  background-blend-mode: overlay;
-  z-index: 0;
-  opacity: 0.9;
-  /* Wavy lines and dots effect */
-}
-.green-overlay::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background:
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M0 50 Q 25 75, 50 50 T 100 50" fill="none" stroke="%231A3C23" stroke-width="3" opacity="0.8"/><circle cx="30" cy="50" r="6" fill="%232A4F36" opacity="0.9"/><circle cx="70" cy="50" r="6" fill="%231F4529" opacity="0.9"/></svg>'),
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="3" fill="%232A4F36" opacity="0.9"/></svg>');
-  background-size:
-    60px 60px,
-    20px 20px;
-  background-repeat: repeat, repeat;
-  animation:
-    wave 8s infinite ease-in-out,
-    pulse 3s infinite alternate;
-  overflow: hidden;
-}
-@keyframes wave {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-@keyframes pulse {
-  0% {
-    background-size:
-      20px 20px,
-      60px 60px;
-  }
-  100% {
-    background-size:
-      25px 25px,
-      70px 70px;
-  }
-}
-
 .profile-img {
-  border-radius: 20px;
   z-index: 1;
-  max-width: 90%;
   transition:
     transform 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
@@ -204,20 +157,5 @@ import HeroImg from '@/assets/hero.jpg'
 /* Ensure the button text remains white even during transition */
 .more-btn:hover .v-btn__content {
   color: white !important;
-}
-
-@media (max-width: 960px) {
-  .profile-img {
-    max-width: 70%;
-  }
-  .text-h4 {
-    font-size: 1.5rem !important;
-  }
-  .text-h6 {
-    font-size: 1rem !important;
-  }
-  .text-body-1 {
-    font-size: 0.9rem !important;
-  }
 }
 </style>

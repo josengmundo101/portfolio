@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
+import { useDisplay } from 'vuetify'
 import carRental from '@/assets/CarRental.jpg'
 import marv from '@/assets/Marv.jpg'
 import cottageCoast from '@/assets/CottageCoast.png'
@@ -130,70 +131,85 @@ const filteredItems = computed(() => {
 const filterItems = (value) => {
   selectedFilter.value = value
 }
+
+// Utilize pre-defined vue functions
+const { mobile } = useDisplay()
 </script>
 
 <template>
-  <v-container fluid class="">
-    <!-- Section Title -->
-    <h1 class="header text-h3 text-center mt-5 text-uppercase">Portfolio</h1>
-    <p
-      class="text-h6 text-center text-white font-italic font-weight-medium text-uppercase mt-3 mb-5"
-    >
-      Work
-    </p>
+  <v-responsive :class="mobile ? 'portfolio-section mb-10' : ''">
+    <v-container fluid class="">
+      <!-- Section Title -->
+      <h1 class="header text-h3 text-center mt-5 text-uppercase">Portfolio</h1>
+      <p
+        class="text-h6 text-center text-white font-italic font-weight-medium text-uppercase mt-3 mb-5"
+      >
+        Work
+      </p>
 
-    <!-- Portfolio Filters -->
-    <v-row>
-      <v-col cols="12" class="d-flex justify-center mb-6">
-        <v-chip-group
-          v-model="selectedFilter"
-          active-class="filter-active"
-          class="portfolio-filters bg-body rounded-pill px-2 py-1"
-          mandatory
-        >
-          <v-chip
-            v-for="filter in filters"
-            :key="filter.value"
-            :value="filter.value"
-            filter
-            class="text-capitalize text-body-1 font-weight-medium"
-            @click="filterItems(filter.value)"
+      <!-- Portfolio Filters -->
+      <v-row>
+        <v-col cols="12" class="d-flex justify-center mb-6">
+          <v-chip-group
+            v-model="selectedFilter"
+            active-class="filter-active"
+            class="portfolio-filters bg-body rounded-pill px-2 py-1"
+            mandatory
           >
-            {{ filter.label }}
-          </v-chip>
-        </v-chip-group>
-      </v-col>
-    </v-row>
+            <v-chip
+              v-for="filter in filters"
+              :key="filter.value"
+              :value="filter.value"
+              filter
+              class="text-capitalize text-body-1 font-weight-medium"
+              @click="filterItems(filter.value)"
+            >
+              {{ filter.label }}
+            </v-chip>
+          </v-chip-group>
+        </v-col>
+      </v-row>
 
-    <!-- Portfolio Items -->
-    <v-row no-gutters class="portfolio-container">
-      <v-col v-for="item in filteredItems" :key="item.id" cols="12" md="6" sm="3" class="pa-3">
-        <v-card
-          class="portfolio-wrap"
-          :class="{ 'portfolio-hover': hover[item.id] }"
-          @mouseover="hover[item.id] = true"
-          @mouseleave="hover[item.id] = false"
-        >
-          <v-img :src="item.img"></v-img>
-          <v-card-text
-            class="portfolio-info d-flex flex-column justify-center align-center pa-6"
-            :class="{ 'portfolio-info-active': hover[item.id] }"
+      <!-- Portfolio Items -->
+      <v-row no-gutters class="portfolio-container">
+        <v-col v-for="item in filteredItems" :key="item.id" cols="12" md="6" sm="3" class="pa-3">
+          <v-card
+            class="portfolio-wrap"
+            :class="{ 'portfolio-hover': hover[item.id] }"
+            @mouseover="hover[item.id] = true"
+            @mouseleave="hover[item.id] = false"
           >
-            <v-card-title class="text-h6 font-weight-regular text-white">{{
-              item.title
-            }}</v-card-title>
-            <v-card-subtitle class="display-1 text-uppercase text-white">{{
-              item.category
-            }}</v-card-subtitle>
-          </v-card-text>
-        </v-card>
-        <p class="text-white text-center mt-5">{{ item.description }}</p>
-      </v-col>
-    </v-row>
-  </v-container>
+            <v-img :src="item.img"></v-img>
+            <v-card-text
+              class="portfolio-info d-flex flex-column justify-center align-center pa-6"
+              :class="{ 'portfolio-info-active': hover[item.id] }"
+            >
+              <v-card-title class="text-h6 font-weight-regular text-white">{{
+                item.title
+              }}</v-card-title>
+              <v-card-subtitle class="display-1 text-uppercase text-white">{{
+                item.category
+              }}</v-card-subtitle>
+            </v-card-text>
+          </v-card>
+          <p class="text-white text-center mt-5">
+            {{ item.description }}
+          </p>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-responsive>
 </template>
 
 <style scoped>
+.portfolio-section {
+  min-height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
 .header {
   font-weight: bold;
   color: #234d2e; /* Green color */
