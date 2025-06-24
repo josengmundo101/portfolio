@@ -84,7 +84,7 @@ const { mobile } = useDisplay()
               </div>
               <div class="d-flex ml-10">
                 <a
-                  href="https://www.dropbox.com/scl/fi/jsk6idq9f9fxn7mbmoly6/resume.pdf?rlkey=cbmuvgzjg527jd6em8qlijcli&st=9rajkx5l&dl=0"
+                  href="https://www.dropbox.com/scl/fi/jsk6idq9f9fxn7mbmoly6/resume.pdf?rlkey=cbmuvgzjg527jd6em8qlijcli&st=yeov7xy4&dl=0"
                   target="_blank"
                 >
                   <v-icon>mdi-dropbox</v-icon>
